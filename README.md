@@ -22,12 +22,25 @@ Installation Instructions
 Usage Overview
 --------------
 
-		$fields->addFieldToTab('Root.Content.Main', $slider = new SliderField('SomePriceField', 'Pick a price between $1 and $100'));
+		$fields->addFieldToTab('Root.Content.Discount', $slider = new SliderField('Discount'));
+		
+		// minimum allowed value (default is 0)
 		$slider->setMinimum(1);
-		$slider->setMaximum(100);
+		
+		// maximum allowed value (default is 100)
+		$slider->setMinimum(25);
+		
+		// increments that the slider steps up in (default is 1)
 		$slider->setStep(1);
-		$slider->setPrefix('$');
-		$slider->setSuffix('.00');
+		
+		// prefixed to value when displayed on the field (default is empty);
+		$slider->setPrefix('');
+		
+		// appended to value when displayed on the field (default is empty);
+		$slider->setSuffix('%');
+		
+		// width of the slider (default is 50%)
+		$slider->setWidth('50%');
 
 
 
