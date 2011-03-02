@@ -28,7 +28,7 @@ Usage Overview
 		$slider->setMinimum(1);
 		
 		// maximum allowed value (default is 100)
-		$slider->setMinimum(25);
+		$slider->setMaximum(25);
 		
 		// increments that the slider steps up in (default is 1)
 		$slider->setStep(1);
