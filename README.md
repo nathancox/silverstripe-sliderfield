@@ -16,7 +16,7 @@ Documentation
 Installation Instructions
 -------------------------
 
-1. Place this directory in the root of your SilverStripe installation
+1. Place the files in a directory called sliderfield in the root of your SilverStripe installation
 2. Visit yoursite.com/dev/build to rebuild the database
 
 Usage Overview
@@ -28,6 +28,9 @@ Usage Overview
 		$slider->setStep(1);
 		$slider->setPrefix('$');
 		$slider->setSuffix('.00');
+
+
+
 
 Known Issues
 ------------

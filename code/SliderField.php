@@ -11,7 +11,7 @@ class SliderField extends NumericField {
 	 * Slider's maximum value
 	 * @var integer
 	 */
-	var $max = 0;
+	var $max = 100;
 	
 	/**
 	 * Slider's step/increment
@@ -31,6 +31,11 @@ class SliderField extends NumericField {
 	 */
 	var $suffix = null;
 	
+	/**
+	 * String representation of CSS width
+	 * @var string
+	 */
+	var $width = "50%";
 	
 	/**
 	 * Create a new field.
@@ -42,11 +47,12 @@ class SliderField extends NumericField {
 	 * @param integer $step The increments to increase bye
 	 * @param string $prefix Prefixed to the value for display purposes
 	 * @param string $suffix Appended to the value for display purposes
+	 * @param string $width CSS width for sizing the slider itself (default is "50%")
 	 * @param Form $form Reference to the container form
 	 * @param string $rightTitle
 	 */
 	function __construct($name, $title = null, $value = null, 
-											$min = 0, $max = 100, $step = 1, $prefix = null, $suffix = null,
+											$min = 0, $max = 100, $step = 1, $prefix = null, $suffix = null, $width = "50%",
 											$form = null, $rightTitle = null) {
 		
 		$this->name = $name;
@@ -56,6 +62,7 @@ class SliderField extends NumericField {
 		$this->setStep($step);
 		$this->setPrefix($prefix);
 		$this->setSuffix($suffix);
+		$this->setWidth($width);
 
 		if($value !== NULL) $this->setValue($value);
 		if($form) $this->setForm($form);
@@ -149,6 +156,25 @@ class SliderField extends NumericField {
 	
 	
 	/**
+	 * Define the CSS width for sizing the slider itself (default is "50%")
+	 * @param string $width Any CSS width value (eg "75%", "200px") 
+	 */
+	function setWidth($width) {
+		$this->width = $width;
+	}
+	
+	/**
+	 * Return the suffix
+	 * @return string
+	 */
+	function getWidth() {
+		return $this->width;
+	}
+	
+	
+	
+	
+	/**
 	 * Return the value formatted with the prefix and suffix
 	 * @return string
 	 */
@@ -160,9 +186,16 @@ class SliderField extends NumericField {
 	function Field() {
 		Requirements::javascript(THIRDPARTY_DIR.'/jquery/jquery.js');
 		Requirements::javascript(THIRDPARTY_DIR.'/jquery-livequery/jquery.livequery.js');
-		Requirements::javascript(THIRDPARTY_DIR.'/jquery/jquery.ui.slider.js');
+		Requirements::javascript(THIRDPARTY_DIR.'/jquery-ui/minified/jquery.ui.core.min.js');
+		Requirements::javascript(THIRDPARTY_DIR.'/jquery-ui/minified/jquery.ui.widget.min.js');
+		Requirements::javascript(THIRDPARTY_DIR.'/jquery-ui/minified/jquery.ui.mouse.min.js');
+		Requirements::javascript(THIRDPARTY_DIR.'/jquery-ui/minified/jquery.ui.slider.min.js');
+		
+		Requirements::css(THIRDPARTY_DIR.'/jquery-ui-themes/base/jquery.ui.theme.css');
+		Requirements::css(THIRDPARTY_DIR.'/jquery-ui-themes/base/jquery.ui.slider.css');
 		
 		Requirements::javascript('sliderfield/javascript/sliderfield.js');
+		
 		
 		$attributes = array(
 			'type' => 'text',
@@ -193,7 +226,7 @@ class SliderField extends NumericField {
 		
 		
 		$html = $this->createTag('input', $attributes);
-		$html .= '<div class="sliderContainer" id="'.$this->Name().'SliderContainer" style="width:50%;margin:3px;">
+		$html .= '<div class="sliderContainer" id="'.$this->Name().'SliderContainer" style="width:'.$this->getWidth().';margin:3px;">
 			<div class="sliderContainerValue" id="'.$this->Name().'SliderContainerValue" style="font-weight:bold;position:relative;left:100%;top:-3px;padding-left:4px;">'.$this->getFormattedValue().'</div>
 		</div>';
 		$html .= '';
