@@ -11,6 +11,7 @@ $('.field.slider').livequery(function(){
 	
 	var prefix = fieldEl.getAttribute('-data-prefix');
 	slider.data('prefix', prefix);
+	
 	var suffix = fieldEl.getAttribute('-data-suffix');
 	slider.data('suffix', suffix);
 	
@@ -27,7 +28,14 @@ $('.field.slider').livequery(function(){
 		value: $(field).val() * 1,
 		slide: function( event, ui ) {
 			$(this).data('field').val(ui.value);
-			$(this).data('valueField').html($(this).data('prefix') + ui.value + $(this).data('suffix'));
+			var valueString = ui.value;
+			if ($(this).data('prefix')) {
+				valueString = $(this).data('prefix') + valueString; 
+			}
+			if ($(this).data('suffix')) {
+				valueString = valueString + $(this).data('suffix'); 
+			}
+			$(this).data('valueField').html(valueString);
 		}
 	});
 
